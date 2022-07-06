@@ -5026,6 +5026,7 @@ func TestRemoveQueue(t *testing.T) {
 			base.ScheduledKey(tc.qname),
 			base.RetryKey(tc.qname),
 			base.ArchivedKey(tc.qname),
+			base.ProcessedTotalKey(tc.qname),
 		}
 		for _, key := range keys {
 			if r.client.Exists(context.Background(), key).Val() != 0 {

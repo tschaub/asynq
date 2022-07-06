@@ -1788,6 +1788,7 @@ redis.call("DEL", KEYS[3])
 redis.call("DEL", KEYS[4])
 redis.call("DEL", KEYS[5])
 redis.call("DEL", KEYS[6])
+redis.call("DEL", KEYS[7])
 return 1`)
 
 // RemoveQueue removes the specified queue.
@@ -1818,6 +1819,7 @@ func (r *RDB) RemoveQueue(qname string, force bool) error {
 		base.RetryKey(qname),
 		base.ArchivedKey(qname),
 		base.LeaseKey(qname),
+		base.ProcessedTotalKey(qname),
 	}
 	res, err := script.Run(context.Background(), r.client, keys, base.TaskKeyPrefix(qname)).Result()
 	if err != nil {
